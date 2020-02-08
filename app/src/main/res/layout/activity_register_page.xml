@@ -11,8 +11,9 @@
     android:gravity="center">
 
 
+
     <TextView
-        android:id="@+id/loginTv"
+        android:id="@+id/registerTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
@@ -20,22 +21,35 @@
         android:layout_marginBottom="100dp"
         android:textColor="#ffff"
         />
-
     <EditText
-        android:id="@+id/username_loginEt"
+        android:id="@+id/full_nameEt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="130dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:gravity="center"
+        android:hint="Full Name"
+        android:textColorHint="#ffff"
+
+        />
+
+    <EditText
+        android:id="@+id/username_registerEt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPersonName"
         android:hint="Username"
         android:textColorHint="#ffff"
 
-       />
+        />
 
     <EditText
-        android:id="@+id/password_loginEt"
+        android:id="@+id/password_registerEt"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -46,8 +60,20 @@
 
         />
 
+    <EditText
+        android:id="@+id/confirm_password_registerEt"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:hint=" Confirm Password"
+        android:textColorHint="#ffff"
+
+        />
     <Button
-        android:id="@+id/continue_loginBtn"
+        android:id="@+id/continue_registerBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#333852"
@@ -55,6 +81,8 @@
         android:textColor="#ffff"
         android:shadowColor="#333852"
         android:text="continue" />
+
+
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

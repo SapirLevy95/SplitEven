@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".add_to_shopping_cart"
+    android:background="#333852"
+    android:gravity="center_horizontal">
+    <TextView
+        android:id="@+id/add_to_cartTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Shopping cart"
+        android:textSize="@android:dimen/app_icon_size"
+        android:layout_marginTop="20dp"
+        android:textColor="#ffff" />
+    <ListView
+        android:id="@+id/itemsLv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:drawSelectorOnTop="false"
+        />
+    <!--<TextView-->
+        <!--android:id="@+id/item1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Item 1"-->
+        <!--android:textSize="30dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:textColor="#ffff" />-->
+    <!---->
+
+</androidx.appcompat.widget.LinearLayoutCompat>

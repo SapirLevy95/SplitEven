@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".add_to_shopping_cart"
+    android:background="#333852"
+    android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/add_to_cartTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add To Cart"
+        android:textSize="@android:dimen/app_icon_size"
+        android:layout_marginBottom="180dp"
+        android:textColor="#ffff"
+
+        />
+
+
+    <!--<Spinner-->
+    <!--android:id="@+id/planets_spinner"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:prompt="ddddddd"-->
+    <!--/>-->
+
+    <EditText
+    android:id="@+id/cost_of_itemEt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:gravity="center"
+    android:hint="Item's cost"
+    android:textColorHint="#ffff"
+    />
+
+    <Button
+    android:id="@+id/add_to_cartBt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#333852"
+    android:textColor="#ffff"
+    android:shadowColor="#333852"
+    android:text="Add To Cart" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        >
+        <EditText
+            android:id="@+id/log_of_mainBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#333852"
+            android:layout_marginTop="80dp"
+            android:textColor="#ffff"
+            android:shadowColor="#333852"
+            android:text="Total:" />
+        <Button
+            android:id="@+id/exit_app_mainBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#333852"
+            android:layout_marginTop="80dp"
+            android:textColor="#ffff"
+            android:shadowColor="#333852"
+            android:text="Go To Cart"
+            android:layout_marginLeft="100dp"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    <Button
+        android:id="@+id/back_to_main_menuBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#333852"
+        android:textColor="#ffff"
+        android:shadowColor="#333852"
+        android:text="Back To Main Menu" />
+
+
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

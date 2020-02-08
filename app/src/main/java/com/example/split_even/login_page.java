@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class login_page extends AppCompatActivity {
 
-    EditText mloginEmailEd;
+    EditText mloginUsernameEd;
     EditText mloginPasswordEd;
     Button mcontinueBtn;
     @Override
@@ -19,9 +19,15 @@ public class login_page extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
 
-        mloginEmailEd = findViewById(R.id.emailEt);
-        mloginPasswordEd = findViewById(R.id.passwordEt);
-        mcontinueBtn = findViewById(R.id.continueBtn);
+        mloginUsernameEd = findViewById(R.id.username_loginEt);
+        mloginPasswordEd = findViewById(R.id.password_loginEt);
+        mcontinueBtn = findViewById(R.id.continue_loginBtn);
+
+//        if (...)
+//        mcontinueBtn.setVisibility(View.INVISIBLE);
+//
+//        mcontinueBtn.setText();
+
 
         mcontinueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +62,7 @@ public class login_page extends AppCompatActivity {
 
     private boolean checkValidityLogin() {
 
-        String email = mloginEmailEd.getText().toString();
+        String email = mloginUsernameEd.getText().toString();
         String password = mloginPasswordEd.getText().toString();
 
         if ( email.length()>0 && password.length()>0){

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Main_menu"
+    android:background="#333852"
+    android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/main_menuTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Main Menu"
+        android:textSize="@android:dimen/app_icon_size"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="180dp"
+        android:textColor="#ffff"
+
+        />
+    <Button
+        android:id="@+id/go_to_manage_cart_pageBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#333852"
+        android:layout_marginTop="10dp"
+        android:textColor="#ffff"
+        android:shadowColor="#333852"
+        android:text="Manage Your Shopping Cart" />
+    <Button
+        android:id="@+id/go_to_add_item_pageBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#333852"
+        android:layout_marginTop="25dp"
+        android:textColor="#ffff"
+        android:shadowColor="#333852"
+        android:text="Add An Item To Shared_Items" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        >
+        <Button
+            android:id="@+id/log_of_mainBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#333852"
+            android:layout_marginTop="80dp"
+            android:textColor="#ffff"
+            android:shadowColor="#333852"
+            android:text="Log Off" />
+        <Button
+            android:id="@+id/exit_app_mainBt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#333852"
+            android:layout_marginTop="80dp"
+            android:textColor="#ffff"
+            android:shadowColor="#333852"
+            android:text="Exit App"
+            android:layout_marginLeft="100dp"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>
