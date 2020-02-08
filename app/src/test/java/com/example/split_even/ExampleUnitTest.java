@@ -1,4 +1,4 @@
-package com.example.spliteven;
+package com.example.split_even;
 
 import org.junit.Test;
 

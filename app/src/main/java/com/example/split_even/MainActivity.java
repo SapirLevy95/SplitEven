@@ -1,4 +1,4 @@
-package com.example.spliteven;
+package com.example.split_even;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -46,4 +46,3 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
-
