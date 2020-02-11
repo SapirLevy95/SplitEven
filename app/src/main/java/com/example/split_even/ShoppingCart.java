@@ -29,11 +29,10 @@ public class ShoppingCart extends AppCompatActivity {
         adapter = new ShoppingCartAdapter(this);
         mListView.setAdapter(adapter);
 
-        for (int i = 0; i <= 100; i++) {
-            listItems.add("Moshe Levi "+ i);
+        for (int i = 0; i <= 10; i++) {
+            listItems.add("Sapir Levy "+ i);
         }
-        listItems.add("Sapir Levi");
-        listItems.add("Sara");
+        listItems.add("Sapir ");
 
         adapter.notifyDataSetChanged(); // Update the XML with the new data, call getView()
     }

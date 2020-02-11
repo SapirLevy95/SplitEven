@@ -31,11 +31,16 @@ public class MainActivity extends AppCompatActivity {
         mregisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                moveToRegisterScreen();
             }
         });
 
     }
+
+    private void moveToRegisterScreen() {
+
+        Intent intent = new Intent(getApplicationContext(),register_page.class);
+        startActivity(intent);}
 
     private void moveToLoginScreen() {
 

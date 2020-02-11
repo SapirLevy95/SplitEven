@@ -8,6 +8,7 @@
     tools:context=".add_to_shopping_cart"
     android:background="#333852"
     android:gravity="center_horizontal">
+
     <TextView
         android:id="@+id/add_to_cartTv"
         android:layout_width="wrap_content"
@@ -15,21 +16,53 @@
         android:text="Shopping cart"
         android:textSize="@android:dimen/app_icon_size"
         android:layout_marginTop="20dp"
-        android:textColor="#ffff" />
+        android:textColor="#D7E1E9"
+
+        />
     <ListView
         android:id="@+id/itemsLv"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="500dp"
         android:drawSelectorOnTop="false"
-        />
-    <!--<TextView-->
-        <!--android:id="@+id/item1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Item 1"-->
-        <!--android:textSize="30dp"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:textColor="#ffff" />-->
-    <!---->
 
+        />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+
+        <TextView
+            android:id="@+id/totalTv"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:textSize="30dp"
+            android:layout_width="50dp"
+            android:text="Total : "
+            android:background="#D7E1E9"
+            android:textColor="@android:color/black"
+            />
+        <Button
+            android:id="@+id/checkoutBt"
+            android:layout_height="51dp"
+            android:layout_weight="1"
+            android:layout_marginTop="1dp"
+            android:textSize="25dp"
+            android:background="#D7E1E9"
+            android:layout_width="55dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="checkout"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/back_to_main_menuBt"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:textSize="25dp"
+        android:layout_width="match_parent"
+        android:text="Back"
+        android:background="#D7E1E9"
+        style="?android:attr/borderlessButtonStyle"
+        />
 </androidx.appcompat.widget.LinearLayoutCompat>
