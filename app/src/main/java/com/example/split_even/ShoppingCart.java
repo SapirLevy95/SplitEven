@@ -38,11 +38,13 @@ public class ShoppingCart extends AppCompatActivity {
     }
 
     public void add_shoping_cart_item(String item) {
+        //need to add if inStock | add the DB | update the TOTAL viewtext **********
         listItems.add(item);
         adapter.notifyDataSetChanged();
     }
 
     public void remove_shoping_cart_item(String item) {
+        // change the inStock to false | delete from DB | update the TOTAL viewtext **********
         listItems.remove(item);
         adapter.notifyDataSetChanged();
     }
