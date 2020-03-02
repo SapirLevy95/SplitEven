@@ -1,72 +1,62 @@
 package com.example.split_even;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class login_page extends AppCompatActivity {
 
-    EditText mloginUsernameEd;
-    EditText mloginPasswordEd;
-    Button mcontinueBtn;
+    private EditText mloginEmailEd;
+    private EditText mloginPasswordEd;
+    private Button mcontinueBtn;
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
+        mAuth = FirebaseAuth.getInstance();
 
-
-        mloginUsernameEd = findViewById(R.id.username_loginEt);
+        mloginEmailEd = findViewById(R.id.email_loginEt);
         mloginPasswordEd = findViewById(R.id.password_loginEt);
         mcontinueBtn = findViewById(R.id.continue_loginBtn);
-
-//        if (...)
-//        mcontinueBtn.setVisibility(View.INVISIBLE);
-//
-//        mcontinueBtn.setText();
-
 
         mcontinueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkValidityLogin()){
-
-                    moveToNextScreen();
-                }
-                else {
-                    Toast.makeText(getBaseContext(),"data is not valid",Toast.LENGTH_LONG).show();}
+                mAuth.signInWithEmailAndPassword(mloginEmailEd.getText().toString(), mloginPasswordEd.getText().toString())
+                        .addOnCompleteListener(login_page.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    String userID = user.getUid();
+                                    // if (userID == adminUserID (in DB)) then show admin main menu. else show regular main menu
+                                    Toast.makeText(login_page.this, "Login successful",
+                                            Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(),Main_menu.class);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(login_page.this, "Login failed, please try again",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
 
-
-
-    }
-
-    private void moveToNextScreen() {
-        String username= mloginUsernameEd.getText().toString() ;
-        String password = mloginPasswordEd.getText().toString();
-
-
-        Intent intent = new Intent(getApplicationContext(),Main_menu.class);
-        intent.putExtra("password", password);
-        intent.putExtra("username",username );
-        startActivity(intent);
-
-
-    }
-
-    private boolean checkValidityLogin() {
-
-        String username = mloginUsernameEd.getText().toString();
-        String password = mloginPasswordEd.getText().toString();
-
-        if ( username.length()>0 && password.length()>0){
-            return true;
-        }
-        else return false;
     }
 }

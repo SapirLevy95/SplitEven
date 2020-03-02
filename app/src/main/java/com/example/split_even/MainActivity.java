@@ -7,16 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
 
-    Button mloginBtn;
-    Button mregisterBtn;
+    private Button mloginBtn;
+    private Button mregisterBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         mloginBtn = findViewById(R.id.login);
         mregisterBtn = findViewById(R.id.register);
@@ -24,30 +26,19 @@ public class MainActivity extends AppCompatActivity {
         mloginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                moveToLoginScreen();
+                Intent intent = new Intent(getApplicationContext(),addshareditem.class);
+                startActivity(intent);
             }
         });
 
         mregisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                moveToRegisterScreen();
+                Intent intent = new Intent(getApplicationContext(),register_page.class);
+                startActivity(intent);
             }
         });
 
     }
-
-    private void moveToRegisterScreen() {
-
-        Intent intent = new Intent(getApplicationContext(),register_page.class);
-        startActivity(intent);}
-
-    private void moveToLoginScreen() {
-
-        Intent intent = new Intent(getApplicationContext(),login_page.class);
-        startActivity(intent);
-
-    }
-
 
 }

@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 //https://www.javatpoint.com/android-custom-listview
 public class ShoppingCart extends AppCompatActivity {
+
+
     public ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
     ListView mListView;
@@ -25,7 +27,8 @@ public class ShoppingCart extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_cart);
 
         mListView = findViewById(R.id.itemsLv);
-//        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, listItems);
+//        adapter = new ArrayAdapter<S
+//        tring>(this,android.R.layout.simple_list_item_1, listItems);
         adapter = new ShoppingCartAdapter(this);
         mListView.setAdapter(adapter);
 
@@ -37,9 +40,13 @@ public class ShoppingCart extends AppCompatActivity {
         adapter.notifyDataSetChanged(); // Update the XML with the new data, call getView()
     }
 
-    public void add_shoping_cart_item(String item) {
+    public void addItemToShoppingCart(PurchasedItem item) {
+
+    }
+
+    public void insertShoppingCartToDB(PurchasedItem item) {
         //need to add if inStock | add the DB | update the TOTAL viewtext **********
-        listItems.add(item);
+       // listItems.add(item);
         adapter.notifyDataSetChanged();
     }
 
