@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class login_page extends AppCompatActivity {
 
-    EditText mloginUsernameEd;
+    EditText mloginEmailEd;
     EditText mloginPasswordEd;
     Button mcontinueBtn;
     @Override
@@ -20,7 +20,7 @@ public class login_page extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
 
 
-        mloginUsernameEd = findViewById(R.id.username_loginEt);
+        mloginEmailEd = findViewById(R.id.email_loginEt);
         mloginPasswordEd = findViewById(R.id.password_loginEt);
         mcontinueBtn = findViewById(R.id.continue_loginBtn);
 
@@ -47,26 +47,22 @@ public class login_page extends AppCompatActivity {
     }
 
     private void moveToNextScreen() {
-        String username= mloginUsernameEd.getText().toString() ;
+        String email= mloginEmailEd.getText().toString() ;
         String password = mloginPasswordEd.getText().toString();
 
 
         Intent intent = new Intent(getApplicationContext(),Main_menu.class);
         intent.putExtra("password", password);
-        intent.putExtra("username",username );
+        intent.putExtra("email",email );
         startActivity(intent);
 
 
     }
 
     private boolean checkValidityLogin() {
-
-        String username = mloginUsernameEd.getText().toString();
+        String email = mloginEmailEd.getText().toString();
         String password = mloginPasswordEd.getText().toString();
 
-        if ( username.length()>0 && password.length()>0){
-            return true;
-        }
-        else return false;
+        return email.length() > 0 && password.length() > 0;
     }
 }

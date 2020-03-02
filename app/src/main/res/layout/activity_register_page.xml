@@ -35,14 +35,14 @@
         />
 
     <EditText
-        android:id="@+id/username_registerEt"
+        android:id="@+id/email_registerEt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:hint="Username"
+        android:hint="Email"
         android:textColorHint="#ffff"
 
         />
