@@ -71,9 +71,7 @@ public class register_page extends AppCompatActivity {
 
         String confirm_password = mregisterConfirmPasswordEd.getText().toString();
 
-        return true;
-//        TOOD Sapir: return this after finish debuging
-//        return is_valid_name && is_valid_email && is_valid_password && password.equals(confirm_password);
+        return is_valid_name && is_valid_email && is_valid_password && password.equals(confirm_password);
 
     }
 }

@@ -3,6 +3,7 @@ package com.example.split_even;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -10,18 +11,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.HeaderViewListAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 //https://www.javatpoint.com/android-custom-listview
 public class ShoppingCart extends AppCompatActivity {
-    public ArrayList<String> listItems = new ArrayList<String>();
-    ArrayAdapter<String> adapter;
+    public ArrayList<String> shoppingCardItems = new ArrayList<String>();
+    ArrayAdapter<String> shoppingCartAdapter;
     ListView mListView;
     Button addBt;
 
@@ -34,54 +34,83 @@ public class ShoppingCart extends AppCompatActivity {
         addBt = findViewById(R.id.addBt);
         addBt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // inflate the layout of the popup window
-                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                View popupView = inflater.inflate(R.layout.add_item_popup, null);
-
-                // create the popup window
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                boolean focusable = true; // lets taps outside the popup also dismiss it
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-                // show the popup window
-                // which view you pass in doesn't matter, it is only used for the window tolken
-                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-                // dismiss the popup window when touched
-                popupView.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        popupWindow.dismiss();
-                        return true;
-                    }
-                });
+            public void onClick(View shopping_cart_view) {
+                createPopup(shopping_cart_view);
             }
         });
 
-//        adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, listItems);
-        adapter = new ShoppingCartAdapter(this);
-        mListView.setAdapter(adapter);
+        shoppingCartAdapter = new ShoppingCartAdapter(this);
+        mListView.setAdapter(shoppingCartAdapter);
 
         for (int i = 0; i <= 10; i++) {
-            listItems.add("Sapir Levy " + i);
+            shoppingCardItems.add("Sapir Levy " + i);
         }
-        listItems.add("Sapir ");
+        shoppingCardItems.add("Sapir ");
 
-        adapter.notifyDataSetChanged(); // Update the XML with the new data, call getView()
+        shoppingCartAdapter.notifyDataSetChanged(); // Update the XML with the new data, call getView()
+    }
+
+    private void createPopup(View shopping_cart_view) {
+        // create the popup window
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.add_item_popup, null);
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true;
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        popupWindow.showAtLocation(shopping_cart_view, Gravity.CENTER, 0, 0);
+
+        // Add items to spinner
+        Spinner spinner = popupWindow.getContentView().findViewById(R.id.select_item_spinner);
+        //TODO: get those values from the DB
+        String[] spinnerItems = {"john", "Johnny", "Tom", "Harry"};
+        // simple_spinner_item - build in in Java
+        ArrayAdapter<String> popupAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerItems);
+        spinner.setAdapter(popupAdapter);
+
+        //Add button
+        Button addButton = popupWindow.getContentView().findViewById(R.id.addBt);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View shopping_cart_view) {
+                Spinner spinner = popupWindow.getContentView().findViewById(R.id.select_item_spinner);
+                String selectedItem = (String) spinner.getSelectedItem();
+                Log.d("myTag", selectedItem);
+
+                EditText priceEt = popupWindow.getContentView().findViewById(R.id.priceEt);
+                String priceText = priceEt.getText().toString();
+                Log.d("myTag", priceText);
+
+
+                //Add the new item to the shopping cart list
+                shoppingCardItems.add(selectedItem);
+                shoppingCartAdapter.notifyDataSetChanged();
+                //TODO Add the new item to DB
+                popupWindow.dismiss();
+            }
+        });
+
+
+        // dismiss the popup window when touched
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
     }
 
     public void add_shoping_cart_item(String item) {
         //need to add if inStock | add the DB | update the TOTAL viewtext **********
-        listItems.add(item);
-        adapter.notifyDataSetChanged();
+        shoppingCardItems.add(item);
+        shoppingCartAdapter.notifyDataSetChanged();
     }
 
     public void remove_shoping_cart_item(String item) {
         // change the inStock to false | delete from DB | update the TOTAL viewtext **********
-        listItems.remove(item);
-        adapter.notifyDataSetChanged();
+        shoppingCardItems.remove(item);
+        shoppingCartAdapter.notifyDataSetChanged();
     }
 
 }
