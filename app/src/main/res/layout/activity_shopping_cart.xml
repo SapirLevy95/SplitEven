@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".add_to_shopping_cart"
     android:background="#333852"
     android:gravity="center_horizontal">
 
@@ -36,18 +35,17 @@
             android:id="@+id/totalTv"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:textSize="30dp"
-            android:layout_width="50dp"
-            android:text="Total : "
+            android:textSize="25sp"
             android:background="#D7E1E9"
-            android:textColor="@android:color/black"
+            android:layout_width="55dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="Total : "
             />
         <Button
             android:id="@+id/checkoutBt"
-            android:layout_height="51dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:layout_marginTop="1dp"
-            android:textSize="25dp"
+            android:textSize="25sp"
             android:background="#D7E1E9"
             android:layout_width="55dp"
             style="?android:attr/borderlessButtonStyle"
@@ -56,12 +54,12 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <Button
-        android:id="@+id/back_to_main_menuBt"
+        android:id="@+id/addBt"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:layout_width="match_parent"
-        android:text="Back"
+        android:text="Add new item"
         android:background="#D7E1E9"
         style="?android:attr/borderlessButtonStyle"
         />

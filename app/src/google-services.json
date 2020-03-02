@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "387870529762",
+    "firebase_url": "https://spliteven-dcac9.firebaseio.com",
+    "project_id": "spliteven-dcac9",
+    "storage_bucket": "spliteven-dcac9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:387870529762:android:4300014ee31d1552fce6bb",
+        "android_client_info": {
+          "package_name": "com.example.split_even"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "387870529762-c8k5c5u7qm7maq6nnkup60p71dc0elgf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAt0S94VuKlaiR6Vo1Nbc5iTcyqF_bs3fM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "387870529762-c8k5c5u7qm7maq6nnkup60p71dc0elgf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
