@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class addshareditem extends AppCompatActivity {
+public class add_shared_item extends AppCompatActivity {
 
     static String tempItemName;
     private FirebaseAuth mAuth;
@@ -23,7 +23,7 @@ public class addshareditem extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addshareditem);
+        setContentView(R.layout.activity_add_shared_item);
         mAuth = FirebaseAuth.getInstance();
         addItemToSharedItems("Milk");
 
@@ -31,6 +31,7 @@ public class addshareditem extends AppCompatActivity {
 
     void addItemToSharedItems (String itemName1)
     {
+        tempItemName = itemName1;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SharedItems");
 
@@ -39,7 +40,7 @@ public class addshareditem extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists())
                 {
-                    Toast.makeText(addshareditem.this, "The item is already in shared items list",
+                    Toast.makeText(add_shared_item.this, "The item is already in shared items list",
                             Toast.LENGTH_SHORT).show();
                 }
                 else
@@ -47,7 +48,7 @@ public class addshareditem extends AppCompatActivity {
                     FirebaseUser user = mAuth.getInstance().getCurrentUser();
                     String userID = user.getUid();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("OfferedItems").child(itemName1).child("userEmail");
+                    DatabaseReference myRef = database.getReference("OfferedItems").child(tempItemName).child("userEmail");
                     User tempUser = dataSnapshot.getValue(User.class);
                     userEmail = tempUser.getEmail();
                     myRef.setValue(userEmail);

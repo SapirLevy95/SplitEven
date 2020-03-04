@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 public class MainActivity extends AppCompatActivity {
 
     private Button mloginBtn;
@@ -26,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         mloginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),addshareditem.class);
+                Intent intent = new Intent(getApplicationContext(), login_page.class);
                 startActivity(intent);
             }
         });

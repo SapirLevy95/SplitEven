@@ -5,13 +5,11 @@ public class User {
     public String userID;
     public String email;
     public String name;
-    public boolean isAdmin;
 
-    public User(String userID, String email, String name, boolean isAdmin) {
+    public User(String userID, String email, String name) {
         this.userID = userID;
         this.email = email;
         this.name = name;
-        this.isAdmin = isAdmin;
     }
 
     public String getUserID() {
@@ -38,11 +36,4 @@ public class User {
         this.name = name;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
-    }
 }

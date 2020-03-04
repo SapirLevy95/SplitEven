@@ -26,7 +26,7 @@ public class add_to_shopping_cart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_to_shopping_cart);
+        setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
 
           }
