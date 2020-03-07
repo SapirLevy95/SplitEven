@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class Main_menu extends AppCompatActivity {
 
@@ -13,6 +14,8 @@ public class Main_menu extends AppCompatActivity {
     Button mLogOffBtn;
     Button mExitAppBtn;
     Button approveNewItemBt;
+    Button addOfferItemBt;
+    EditText offerNewItemEt;
 
 
     @Override
@@ -24,6 +27,8 @@ public class Main_menu extends AppCompatActivity {
         mLogOffBtn = findViewById(R.id.log_of_mainBt);
         mExitAppBtn = findViewById(R.id.exit_app_mainBt);
         approveNewItemBt = findViewById(R.id.approve_new_itemBt);
+        addOfferItemBt = findViewById(R.id.offerItemB);
+        offerNewItemEt = findViewById(R.id.add_iteEt);
 
 
         mManageShoppingCartBtn.setOnClickListener(new View.OnClickListener() {
@@ -32,6 +37,19 @@ public class Main_menu extends AppCompatActivity {
                 moveToManageShoppingCart();
             }
         });
+
+        addOfferItemBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String offered_item;
+                offered_item =  offerNewItemEt.getText().toString();
+                if (!offered_item.equals("")) {
+                    //Todo : put the item into the DB if not exists in DB
+                    offerNewItemEt.setText("");
+                }
+            }
+        });
+
 
         approveNewItemBt.setOnClickListener(new View.OnClickListener() {
             @Override

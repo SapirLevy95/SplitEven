@@ -49,6 +49,24 @@
         android:shadowColor="#333852"
         android:text="Approve new item" />
 
+     <LinearLayout
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="80dp">
+         <EditText
+             android:id="@+id/add_iteEt"
+             android:layout_width="wrap_content"
+             android:minWidth="100dp"
+             android:layout_height="wrap_content"
+             android:hint="NAME"
+             android:text=""/>
+         <Button
+             android:id="@+id/offerItemB"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="Offer Item"/>
+     </LinearLayout>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

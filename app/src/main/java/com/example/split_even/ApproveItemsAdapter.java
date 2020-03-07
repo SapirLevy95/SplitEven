@@ -16,27 +16,39 @@ public class ApproveItemsAdapter extends ArrayAdapter<String> {
 
     public ApproveItemsAdapter(approveNewItem context) {
         super(context, R.layout.shoping_cart_item, context.approveItems);
-        this.context=context;
-        this.item_names=context.approveItems;
+        this.context = context;
+        this.item_names = context.approveItems;
     }
 
     public View getView(final int position, View view, ViewGroup parent) {
-        LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.appoved_item_adapter, null,true);
+        LayoutInflater inflater = context.getLayoutInflater();
+        View rowView = inflater.inflate(R.layout.appoved_item_adapter, null, true);
 
         TextView titleText = rowView.findViewById(R.id.title);
         titleText.setText(this.item_names.get(position));
-        Button removeButton= rowView.findViewById(R.id.remove_button);
+        Button removeButton = rowView.findViewById(R.id.remove_button);
+        Button approveButton = rowView.findViewById(R.id.approve_button);
 
         removeButton.setOnClickListener(new PositionalOnClickListener(position) {
             @Override
             public void onClick(View removeView) {
-                context.remove_item(context.approveItems.get(this.position));
+//                TODO: update DB
+                context.remove_item_form_screen(context.approveItems.get(this.position));
+            }
+        });
+
+        approveButton.setOnClickListener(new PositionalOnClickListener(position) {
+            @Override
+            public void onClick(View removeView) {
+//                TODO: update DB
+                context.remove_item_form_screen(context.approveItems.get(this.position));
             }
         });
         return rowView;
 
-    };
+    }
+
+    ;
 }
 
 ;

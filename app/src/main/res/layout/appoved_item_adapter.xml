@@ -10,9 +10,17 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:text="Title"
         android:textColor="#4d4d4d"/>
 
+    <Button
+        android:id="@+id/approve_button"
+        android:layout_width="wrap_content"
+        android:textSize="10dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="10dp"
+        android:text="Approve" />
     <Button
         android:id="@+id/remove_button"
         android:layout_width="wrap_content"

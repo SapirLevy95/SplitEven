@@ -31,11 +31,10 @@
     <Button
         android:id="@+id/back_to_main_menuBt"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:textSize="25sp"
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
+        android:textSize="25sp"
         android:text="back to main menu"
         android:background="#D7E1E9"
-        style="?android:attr/borderlessButtonStyle"
         />
 </androidx.appcompat.widget.LinearLayoutCompat>

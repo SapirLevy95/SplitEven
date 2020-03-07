@@ -54,7 +54,8 @@ public class approveNewItem extends AppCompatActivity {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View shopping_cart_view) {
-                //TODO: back
+                Intent intent = new Intent(getApplicationContext(), Main_menu.class);
+                startActivity(intent);
             }
         });
         approve_items_adapeter = new ApproveItemsAdapter(this);
@@ -68,7 +69,7 @@ public class approveNewItem extends AppCompatActivity {
     }
 
 
-    public void remove_item(String item) {
+    public void remove_item_form_screen(String item) {
         approveItems.remove(item);
         approve_items_adapeter.notifyDataSetChanged();
     }
