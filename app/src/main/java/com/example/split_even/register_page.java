@@ -34,7 +34,7 @@ public class register_page extends AppCompatActivity {
     private EditText mregisterPasswordEd;
     private EditText mregisterPasswordConfEd;
     private FirebaseAuth mAuth;
-    static boolean isAdmin = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,8 @@ public class register_page extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getInstance().getCurrentUser();
                                     String userID = user.getUid();
-                                    User currUser = new User (userID, mregisterEmailEd.getText().toString(), mregisterFullnameEd.getText().toString());
+                                    User currUser = new User(userID, mregisterEmailEd.getText().toString(), mregisterFullnameEd.getText().toString());
+                                    AppState.user_name = currUser.email;
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                     DatabaseReference myRef = database.getReference("Users");
                                     myRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -67,7 +68,6 @@ public class register_page extends AppCompatActivity {
                                             for (DataSnapshot child : dataSnapshot.getChildren()) {
                                                 if (child.getKey() == null)
                                                 {
-                                                    isAdmin = true;
                                                     System.out.println("is admin true");
                                                 }
                                             }
@@ -85,17 +85,9 @@ public class register_page extends AppCompatActivity {
                                     Toast.makeText(register_page.this, "Registration successful",
                                             Toast.LENGTH_SHORT).show();
 
-                                    if (isAdmin)
-                                    {
-                                        isAdmin = false;
-                                        Intent intent = new Intent(getApplicationContext(),admin_main_menu.class);
-                                        startActivity(intent);
-                                    }
-                                    else
-                                    {
-                                        Intent intent = new Intent(getApplicationContext(),Main_menu.class);
-                                        startActivity(intent);
-                                    }
+
+                                    Intent intent = new Intent(getApplicationContext(), Main_menu.class);
+                                    startActivity(intent);
                                 } else {
                                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                     Toast.makeText(register_page.this, "Registration failed",
@@ -116,23 +108,16 @@ public class register_page extends AppCompatActivity {
         boolean is_valid_password = Pattern.matches("^[ A-Za-z0-9]+$", password);
         String confirm_password = mregisterPasswordConfEd.getText().toString();
 
-        if (!is_valid_name)
-        {
+        if (!is_valid_name) {
             Toast.makeText(register_page.this, "Full name should contain letters only (A-Z and/or a-z)",
                     Toast.LENGTH_SHORT).show();
-        }
-        else if(!is_valid_email)
-        {
+        } else if (!is_valid_email) {
             Toast.makeText(register_page.this, "Email address is invalid",
                     Toast.LENGTH_SHORT).show();
-        }
-        else if (!is_valid_password)
-        {
+        } else if (!is_valid_password) {
             Toast.makeText(register_page.this, "Password should contain letters (A-Z, a-z) and/or digits only (0-9)",
                     Toast.LENGTH_SHORT).show();
-        }
-        else if (!password.equals(confirm_password))
-        {
+        } else if (!password.equals(confirm_password)) {
             Toast.makeText(register_page.this, "Passwords do not match",
                     Toast.LENGTH_SHORT).show();
         }

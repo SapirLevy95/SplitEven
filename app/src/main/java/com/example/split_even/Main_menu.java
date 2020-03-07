@@ -30,6 +30,13 @@ public class Main_menu extends AppCompatActivity {
         addOfferItemBt = findViewById(R.id.offerItemB);
         offerNewItemEt = findViewById(R.id.add_iteEt);
 
+        if (!AppState.user_name.equals("admin@gmail.com")) {
+            System.out.println("user_name");
+            System.out.println(AppState.user_name);
+            approveNewItemBt.setVisibility(View.INVISIBLE);
+        } else{
+            approveNewItemBt.setVisibility(View.VISIBLE);
+        }
 
         mManageShoppingCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +49,7 @@ public class Main_menu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String offered_item;
-                offered_item =  offerNewItemEt.getText().toString();
+                offered_item = offerNewItemEt.getText().toString();
                 if (!offered_item.equals("")) {
                     //Todo : put the item into the DB if not exists in DB
                     offerNewItemEt.setText("");
@@ -74,8 +81,7 @@ public class Main_menu extends AppCompatActivity {
         });
 
 
-
-}
+    }
 
     private void moveToApproveNewItemBt() {
         Intent intent = new Intent(getApplicationContext(), approveNewItem.class);
@@ -83,13 +89,13 @@ public class Main_menu extends AppCompatActivity {
     }
 
     private void moveToOpeningScreen() {
-        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
 
     private void moveToManageShoppingCart() {
-        Intent intent = new Intent(getApplicationContext(),ShoppingCart.class);
+        Intent intent = new Intent(getApplicationContext(), ShoppingCart.class);
         startActivity(intent);
     }
-    }
+}
 

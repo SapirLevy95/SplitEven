@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 //https://www.javatpoint.com/android-custom-listview
 public class ShoppingCart extends AppCompatActivity {
@@ -60,10 +61,6 @@ public class ShoppingCart extends AppCompatActivity {
         shoppingCartAdapter = new ShoppingCartAdapter(this);
         mListView.setAdapter(shoppingCartAdapter);
 
-        for (int i = 0; i <= 10; i++) {
-            shoppingCartItems.add("Sapir Levy " + i);
-        }
-        shoppingCartItems.add("Sapir ");
 
         shoppingCartAdapter.notifyDataSetChanged(); // Update the XML with the new data, call getView()
 
@@ -123,8 +120,11 @@ public class ShoppingCart extends AppCompatActivity {
         {
             System.out.println(sharedItemsList.get(i));
         }
+        List<String> temp1 = new ArrayList<String>();
+        //TODO: add to list insead of the item above
+        temp1.add("Eggs");
+        temp1.add("Milk");
 
-        String [] temp1 = {"Eggs", "Milk"};
         Spinner spinner = popupWindow.getContentView().findViewById(R.id.select_item_spinner);
         ArrayAdapter<String> popupAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, temp1);
         spinner.setAdapter(popupAdapter);
