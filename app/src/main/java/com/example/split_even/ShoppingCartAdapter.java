@@ -16,9 +16,9 @@ public class ShoppingCartAdapter extends ArrayAdapter<String> {
 
 
     public ShoppingCartAdapter (ShoppingCart context) {
-        super(context, R.layout.shoping_cart_item, context.shoppingCardItems);
+        super(context, R.layout.shoping_cart_item, context.shoppingCartItems);
         this.context=context;
-        this.item_names=context.shoppingCardItems;
+        this.item_names=context.shoppingCartItems;
     }
 
     // Replace mocked data with our data
@@ -33,7 +33,7 @@ public class ShoppingCartAdapter extends ArrayAdapter<String> {
         removeButton.setOnClickListener(new PositionalOnClickListener(position) {
             @Override
             public void onClick(View removeView) {
-                context.remove_shoping_cart_item(context.shoppingCardItems.get(this.position));
+                context.remove_shoping_cart_item(context.shoppingCartItems.get(this.position));
             }
         });
         return rowView;

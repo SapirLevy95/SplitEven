@@ -3,8 +3,8 @@ package com.example.split_even;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,6 +17,8 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,19 +29,28 @@ import java.util.ArrayList;
 
 //https://www.javatpoint.com/android-custom-listview
 public class ShoppingCart extends AppCompatActivity {
-    public ArrayList<String> shoppingCardItems = new ArrayList<String>();
-    ArrayAdapter<String> shoppingCartAdapter;
-    ListView mListView;
-    Button addBt;
+
+    public ArrayList<String> shoppingCartItems = new ArrayList<String>();
+    public ArrayList<String> sharedItemsList = new ArrayList<>();
+    public ArrayList<PurchasedItem> listItems = new ArrayList<PurchasedItem>();
+    private ArrayAdapter<String> shoppingCartAdapter;
+    private ListView mListView;
+    private Button addBtn;
+    private FirebaseAuth mAuth;
+    static String userEmail;
+    private Button checkoutButton;
+    private Button addButton_popup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
+        mAuth = FirebaseAuth.getInstance();
+        mListView = (ListView)findViewById(R.id.itemsLv);
+        addBtn = (Button)findViewById(R.id.addBtn);
+        checkoutButton = (Button)findViewById(R.id.checkoutBt);
 
-        mListView = findViewById(R.id.itemsLv);
-        addBt = findViewById(R.id.addBt);
-        addBt.setOnClickListener(new View.OnClickListener() {
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View shopping_cart_view) {
                 createPopup(shopping_cart_view);
@@ -50,11 +61,34 @@ public class ShoppingCart extends AppCompatActivity {
         mListView.setAdapter(shoppingCartAdapter);
 
         for (int i = 0; i <= 10; i++) {
-            shoppingCardItems.add("Sapir Levy " + i);
+            shoppingCartItems.add("Sapir Levy " + i);
         }
-        shoppingCardItems.add("Sapir ");
+        shoppingCartItems.add("Sapir ");
 
         shoppingCartAdapter.notifyDataSetChanged(); // Update the XML with the new data, call getView()
+
+        // Checkout - Save items in shopping cart to database
+
+        checkoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View shopping_cart_view) {
+                System.out.println("Checkout performed");
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("PurchasedItems");
+
+                for (int i=0;i<listItems.size();i++)
+                {
+                    myRef.push().setValue(listItems.get(i));
+                }
+
+                Intent intent = new Intent(getApplicationContext(),Main_menu.class);
+                startActivity(intent);
+
+            }
+        });
+
+        // -----------------------------------------------------------------------
+
     }
 
     private void createPopup(View shopping_cart_view) {
@@ -67,12 +101,11 @@ public class ShoppingCart extends AppCompatActivity {
         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
         popupWindow.showAtLocation(shopping_cart_view, Gravity.CENTER, 0, 0);
 
-        // Add items to spinner
-        final ArrayList<String> sharedItemsList = new ArrayList<String>();
+        // Add shared items to spinner
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SharedItems");
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
@@ -86,27 +119,53 @@ public class ShoppingCart extends AppCompatActivity {
             }
         });
 
+        for (int i=0;i<sharedItemsList.size();i++)
+        {
+            System.out.println(sharedItemsList.get(i));
+        }
 
+        String [] temp1 = {"Eggs", "Milk"};
         Spinner spinner = popupWindow.getContentView().findViewById(R.id.select_item_spinner);
-        ArrayAdapter<String> popupAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sharedItemsList);
+        ArrayAdapter<String> popupAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, temp1);
         spinner.setAdapter(popupAdapter);
 
-        //Add button
-        Button addButton = popupWindow.getContentView().findViewById(R.id.addBt);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        // Add item to shopping cart
+
+        addButton_popup = popupWindow.getContentView().findViewById(R.id.addBtn_popup);
+        addButton_popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View shopping_cart_view) {
+                FirebaseUser user = mAuth.getInstance().getCurrentUser();
+                String userID = user.getUid();
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+
                 Spinner spinner = popupWindow.getContentView().findViewById(R.id.select_item_spinner);
                 String selectedItem = (String) spinner.getSelectedItem();
-                Log.d("myTag", selectedItem);
 
                 EditText priceEt = popupWindow.getContentView().findViewById(R.id.priceEt);
-                String priceText = priceEt.getText().toString();
-                Log.d("myTag", priceText);
+                double itemPrice = Double.parseDouble(priceEt.getText().toString());
 
+                System.out.println("Before reading user details from DB");
+                DatabaseReference myRef = database.getReference("Users").child(userID);
+                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.getValue(User.class);
+                        userEmail = user.getEmail();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                PurchasedItem temp = new PurchasedItem(selectedItem, itemPrice, userEmail);
+                System.out.println ("Item name: " + temp.getItemName() + " and item price: " + temp.getPrice() + " and user mail: " + temp.getUserEmail());
+                listItems.add(temp);
 
                 //Add the new item to the shopping cart list
-                shoppingCardItems.add(selectedItem);
+                shoppingCartItems.add(selectedItem);
                 shoppingCartAdapter.notifyDataSetChanged();
                 //TODO Add the new item to DB
                 popupWindow.dismiss();
@@ -123,15 +182,16 @@ public class ShoppingCart extends AppCompatActivity {
         });
     }
 
+
     public void add_shoping_cart_item(String item) {
         //need to add if inStock | add the DB | update the TOTAL viewtext **********
-        shoppingCardItems.add(item);
+        shoppingCartItems.add(item);
         shoppingCartAdapter.notifyDataSetChanged();
     }
 
     public void remove_shoping_cart_item(String item) {
         // change the inStock to false | delete from DB | update the TOTAL viewtext **********
-        shoppingCardItems.remove(item);
+        shoppingCartItems.remove(item);
         shoppingCartAdapter.notifyDataSetChanged();
     }
 

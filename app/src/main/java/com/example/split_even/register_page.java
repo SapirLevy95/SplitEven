@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.regex.Pattern;
 
 public class register_page extends AppCompatActivity {
+
+    private static final String TAG = "register_page";
 
     private Button mcontinueBtn;
     private EditText mregisterFullnameEd;
@@ -61,16 +64,14 @@ public class register_page extends AppCompatActivity {
                                     myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                            if (!dataSnapshot.exists())
-                                            {
-                                                isAdmin = true;
-                                                System.out.println("is admin true");
+                                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                                if (child.getKey() == null)
+                                                {
+                                                    isAdmin = true;
+                                                    System.out.println("is admin true");
+                                                }
                                             }
-                                            else
-                                            {
-                                                isAdmin = false;
-                                                System.out.println("is admin false");
-                                            }
+
                                         }
 
                                         @Override
@@ -86,6 +87,7 @@ public class register_page extends AppCompatActivity {
 
                                     if (isAdmin)
                                     {
+                                        isAdmin = false;
                                         Intent intent = new Intent(getApplicationContext(),admin_main_menu.class);
                                         startActivity(intent);
                                     }
@@ -95,6 +97,7 @@ public class register_page extends AppCompatActivity {
                                         startActivity(intent);
                                     }
                                 } else {
+                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
                                     Toast.makeText(register_page.this, "Registration failed",
                                             Toast.LENGTH_SHORT).show();
                                 }

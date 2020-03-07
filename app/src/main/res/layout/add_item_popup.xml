@@ -50,13 +50,12 @@
                 android:id="@+id/priceEt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="150dp"
                 android:inputType="numberDecimal"
-                />
+                android:minWidth="150dp" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/addBt"
+            android:id="@+id/addBtn_popup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add"
