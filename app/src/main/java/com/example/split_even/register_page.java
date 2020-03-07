@@ -50,7 +50,7 @@ public class register_page extends AppCompatActivity {
 
         mcontinueBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-              checkValidityLogin();
+                checkValidityLogin();
                 mAuth.createUserWithEmailAndPassword(mregisterEmailEd.getText().toString(), mregisterPasswordEd.getText().toString())
                         .addOnCompleteListener(register_page.this, new OnCompleteListener<AuthResult>() {
                             @Override

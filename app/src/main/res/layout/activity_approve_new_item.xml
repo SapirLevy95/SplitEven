@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#333852"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/approve_new_items_titleTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Approve New Items"
+        android:textSize="45dip"
+        android:layout_marginTop="20dp"
+        android:textColor="#D7E1E9"
+
+        />
+    <ListView
+        android:id="@+id/items_to_approveLv"
+        android:layout_width="fill_parent"
+        android:layout_height="500dp"
+        android:drawSelectorOnTop="false"
+
+        />
+
+
+
+    <Button
+        android:id="@+id/back_to_main_menuBt"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:textSize="25sp"
+        android:text="back to main menu"
+        android:background="#D7E1E9"
+        />
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,25 +1,21 @@
 package com.example.split_even;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import android.widget.EditText;
 
 public class Main_menu extends AppCompatActivity {
 
     Button mManageShoppingCartBtn;
     Button mLogOffBtn;
     Button mExitAppBtn;
+    Button approveNewItemBt;
+    Button addOfferItemBt;
+    EditText offerNewItemEt;
 
 
     @Override
@@ -30,12 +26,35 @@ public class Main_menu extends AppCompatActivity {
         mManageShoppingCartBtn = findViewById(R.id.go_to_manage_cart_pageBt);
         mLogOffBtn = findViewById(R.id.log_of_mainBt);
         mExitAppBtn = findViewById(R.id.exit_app_mainBt);
+        approveNewItemBt = findViewById(R.id.approve_new_itemBt);
+        addOfferItemBt = findViewById(R.id.offerItemB);
+        offerNewItemEt = findViewById(R.id.add_iteEt);
 
 
         mManageShoppingCartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 moveToManageShoppingCart();
+            }
+        });
+
+        addOfferItemBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String offered_item;
+                offered_item =  offerNewItemEt.getText().toString();
+                if (!offered_item.equals("")) {
+                    //Todo : put the item into the DB if not exists in DB
+                    offerNewItemEt.setText("");
+                }
+            }
+        });
+
+
+        approveNewItemBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveToApproveNewItemBt();
             }
         });
 
@@ -57,6 +76,11 @@ public class Main_menu extends AppCompatActivity {
 
 
 }
+
+    private void moveToApproveNewItemBt() {
+        Intent intent = new Intent(getApplicationContext(), approveNewItem.class);
+        startActivity(intent);
+    }
 
     private void moveToOpeningScreen() {
         Intent intent = new Intent(getApplicationContext(),MainActivity.class);
