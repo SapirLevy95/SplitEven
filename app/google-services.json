@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "30664904361",
+    "firebase_url": "https://spliteven-15e4d.firebaseio.com",
+    "project_id": "spliteven-15e4d",
+    "storage_bucket": "spliteven-15e4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30664904361:android:9c8ca336e941134cfee3b8",
+        "android_client_info": {
+          "package_name": "com.example.spliteven"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30664904361-te88jjvq2ngj8dbuoe2rijed7j6tjvqh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.spliteven",
+            "certificate_hash": "2b2eab469634d3b47ac74ebc107565d5ae963c06"
+          }
+        },
+        {
+          "client_id": "30664904361-4slgg0t1oagf2e7j87krs1mep21of545.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF_jIwgwJZRsjFGI4c1eGjDDeQ5M1frrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "30664904361-4slgg0t1oagf2e7j87krs1mep21of545.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
