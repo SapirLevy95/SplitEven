@@ -1,5 +1,6 @@
 package com.example.split_even;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,6 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main_menu extends AppCompatActivity {
 
@@ -16,6 +27,7 @@ public class Main_menu extends AppCompatActivity {
     Button approveNewItemBt;
     Button addOfferItemBt;
     EditText offerNewItemEt;
+    static String offeredItem;
 
 
     @Override
@@ -48,12 +60,34 @@ public class Main_menu extends AppCompatActivity {
         addOfferItemBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String offered_item;
-                offered_item = offerNewItemEt.getText().toString();
-                if (!offered_item.equals("")) {
-                    //Todo : put the item into the DB if not exists in DB
-                    offerNewItemEt.setText("");
-                }
+                offeredItem =  offerNewItemEt.getText().toString();
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference("OfferedItems");
+                myRef.orderByChild("itemName").equalTo(offeredItem).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists())
+                        {
+                            Toast.makeText(Main_menu.this, "Item already exists",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            offerNewItemEt.setText("");
+                            Map<String, String> temp = new HashMap<String, String>();
+                            temp.put("itemName", offeredItem);
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef1 = database.getReference("OfferedItems");
+                            myRef1.push().setValue(temp);
+                            Toast.makeText(Main_menu.this, "Item was added to Offered Items",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 

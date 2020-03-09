@@ -61,6 +61,31 @@ public class approveNewItem extends AppCompatActivity {
         approve_items_adapeter = new ApproveItemsAdapter(this);
         mListView.setAdapter(approve_items_adapeter);
 
+        // Load items from OfferedItems
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("OfferedItems");
+        myRef.orderByChild("itemName").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    sharedItemsList.add(child.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        for (int i=0;i<sharedItemsList.size();i++)
+        {
+            System.out.println(sharedItemsList.get(i));
+        }
+
+        // ------------------------------------------------------------------
+
         for (int i = 0; i <= 10; i++) {
             approveItems.add("Item to approve  " + i);
         }

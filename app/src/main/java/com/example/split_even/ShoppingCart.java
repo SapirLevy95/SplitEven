@@ -102,12 +102,13 @@ public class ShoppingCart extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SharedItems");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.orderByChild("itemName").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                System.out.println(dataSnapshot.getValue(String.class));
+                /*for (DataSnapshot child : dataSnapshot.getChildren()) {
                     sharedItemsList.add(child.getKey());
-                }
+                }*/
             }
 
             @Override
@@ -167,7 +168,6 @@ public class ShoppingCart extends AppCompatActivity {
                 //Add the new item to the shopping cart list
                 shoppingCartItems.add(selectedItem);
                 shoppingCartAdapter.notifyDataSetChanged();
-                //TODO Add the new item to DB
                 popupWindow.dismiss();
             }
         });
