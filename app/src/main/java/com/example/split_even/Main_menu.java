@@ -28,6 +28,7 @@ public class Main_menu extends AppCompatActivity {
     Button addOfferItemBt;
     EditText offerNewItemEt;
     static String offeredItem;
+    Button calculationScreenBt;
 
 
     @Override
@@ -41,6 +42,7 @@ public class Main_menu extends AppCompatActivity {
         approveNewItemBt = findViewById(R.id.approve_new_itemBt);
         addOfferItemBt = findViewById(R.id.offerItemB);
         offerNewItemEt = findViewById(R.id.add_iteEt);
+        calculationScreenBt = findViewById(R.id.calculationExpansesScreenBt);
 
         if (!AppState.user_name.equals("admin@gmail.com")) {
             System.out.println("user_name");
@@ -99,6 +101,15 @@ public class Main_menu extends AppCompatActivity {
             }
         });
 
+
+        calculationScreenBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moveToCalculatuonScreen();
+            }
+        });
+
+
         mLogOffBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +130,11 @@ public class Main_menu extends AppCompatActivity {
 
     private void moveToApproveNewItemBt() {
         Intent intent = new Intent(getApplicationContext(), approveNewItem.class);
+        startActivity(intent);
+    }
+
+    private void moveToCalculatuonScreen() {
+        Intent intent = new Intent(getApplicationContext(), CalculateExpenses.class);
         startActivity(intent);
     }
 

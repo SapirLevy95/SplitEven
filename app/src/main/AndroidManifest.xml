@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CalculateExpenses"></activity>
         <activity
             android:name=".approveNewItem"
             android:label="@string/title_activity_approve_new_item"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".admin_main_menu" />
         <activity android:name=".add_shared_item" />
         <activity android:name=".ShoppingCart" />
