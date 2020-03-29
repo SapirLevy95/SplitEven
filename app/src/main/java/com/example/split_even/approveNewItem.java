@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,17 +13,10 @@ import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -32,9 +24,9 @@ public class approveNewItem extends AppCompatActivity {
 
 
     public ArrayList<String> approveItems = new ArrayList<String>();
-    public ArrayList<String> sharedItemsList = new ArrayList<>();
+    public ArrayList<String> offeredItemsList = new ArrayList<>();
     public ArrayList<PurchasedItem> listItems = new ArrayList<PurchasedItem>();
-    private ArrayAdapter<String> approve_items_adapeter;
+    private ArrayAdapter<String> approve_items_adapter;
     private ListView mListView;
     private Button back_button;
     private FirebaseAuth mAuth;
@@ -58,19 +50,27 @@ public class approveNewItem extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        approve_items_adapeter = new ApproveItemsAdapter(this);
-        mListView.setAdapter(approve_items_adapeter);
+        approve_items_adapter = new ApproveItemsAdapter(this);
+        mListView.setAdapter(approve_items_adapter);
 
         // Load items from OfferedItems
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("OfferedItems");
-        myRef.orderByChild("itemName").addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    sharedItemsList.add(child.getKey());
+                for (DataSnapshot child1 : dataSnapshot.getChildren()) {
+                    offeredItemsList.add(child1.child("itemName").getValue(String.class));
+                    System.out.println(child1.child("itemName").getValue(String.class));
                 }
+
+                for (int i = 0; i<offeredItemsList.size(); i++) {
+                    System.out.println("item is: " + offeredItemsList.get(i));
+                    approveItems.add(offeredItemsList.get(i));
+                }
+
+                approve_items_adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -79,24 +79,14 @@ public class approveNewItem extends AppCompatActivity {
             }
         });
 
-        for (int i=0;i<sharedItemsList.size();i++)
-        {
-            System.out.println(sharedItemsList.get(i));
-        }
-
         // ------------------------------------------------------------------
 
-        for (int i = 0; i <= 10; i++) {
-            approveItems.add("Item to approve  " + i);
-        }
-
-        approve_items_adapeter.notifyDataSetChanged();
     }
 
 
-    public void remove_item_form_screen(String item) {
+    public void remove_item_from_screen(String item) {
         approveItems.remove(item);
-        approve_items_adapeter.notifyDataSetChanged();
+        approve_items_adapter.notifyDataSetChanged();
     }
 
 

@@ -8,7 +8,7 @@ public class PurchasedItem {
 
     private String itemName;
     private double price;
-    private String date;
+   // private String date;
     private String userEmail;
 
     public PurchasedItem(String itemName, double price, String userEmail) {
@@ -16,9 +16,9 @@ public class PurchasedItem {
         this.price = price;
         this.userEmail = userEmail;
 
-        Calendar calendar = Calendar.getInstance();
+    /*    Calendar calendar = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        date = formatter.format(calendar.getTime());
+        date = formatter.format(calendar.getTime()); */
     }
 
     public String getItemName() {
@@ -37,13 +37,13 @@ public class PurchasedItem {
         this.price = price;
     }
 
-    public String getDate() {
+    /* public String getDate() {
         return date;
     }
 
     public void setDate(String date) {
         this.date = date;
-    }
+    } */
 
     public String getUserEmail() {
         return userEmail;

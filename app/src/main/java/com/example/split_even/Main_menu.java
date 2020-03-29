@@ -105,7 +105,8 @@ public class Main_menu extends AppCompatActivity {
         calculationScreenBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                moveToCalculatuonScreen();
+                System.out.println("Test press button calculation screen");
+                moveToCalculationScreen();
             }
         });
 
@@ -133,9 +134,10 @@ public class Main_menu extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void moveToCalculatuonScreen() {
+    private void moveToCalculationScreen() {
         Intent intent = new Intent(getApplicationContext(), CalculateExpenses.class);
         startActivity(intent);
+        System.out.println("Test move to calculation screen");
     }
 
     private void moveToOpeningScreen() {

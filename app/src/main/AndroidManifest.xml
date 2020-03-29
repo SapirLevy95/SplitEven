@@ -14,8 +14,6 @@
             android:name=".approveNewItem"
             android:label="@string/title_activity_approve_new_item"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".admin_main_menu" />
-        <activity android:name=".add_shared_item" />
         <activity android:name=".ShoppingCart" />
         <activity android:name=".Main_menu" />
         <activity android:name=".register_page" />

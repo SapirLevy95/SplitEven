@@ -45,7 +45,6 @@ public class login_page extends AppCompatActivity {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     AppState.user_name = user.getEmail();
                                     String userID = user.getUid();
-                                    // if (userID == adminUserID (in DB)) then show admin main menu. else show regular main menu
                                     Toast.makeText(login_page.this, "Login successful",
                                             Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(),Main_menu.class);
