@@ -30,24 +30,16 @@
         android:textColor="#ffff"
         android:shadowColor="#333852"
         android:text="Manage Your Shopping Cart" />
-    <Button
-        android:id="@+id/go_to_add_item_pageBt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#333852"
-        android:layout_marginTop="25dp"
-        android:textColor="#ffff"
-        android:shadowColor="#333852"
-        android:text="Add An Item To Shared Items" />
+
     <Button
         android:id="@+id/approve_new_itemBt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#333852"
         android:layout_marginTop="25dp"
-        android:textColor="#ffff"
+        android:background="#333852"
         android:shadowColor="#333852"
-        android:text="Approve new item" />
+        android:text="Approve new items"
+        android:textColor="#ffff" />
     <Button
         android:id="@+id/calculationExpansesScreenBt"
         android:layout_width="wrap_content"

@@ -43,7 +43,6 @@ public class ApproveItemsAdapter extends ArrayAdapter<String> {
         removeButton.setOnClickListener(new PositionalOnClickListener(position) {
             @Override
             public void onClick(View removeView) {
-               // System.out.println("The removed item is: " + context.approveItems.get(this.position));
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("OfferedItems");
                 String item_to_remove = context.approveItems.get(this.position);
@@ -95,8 +94,6 @@ public class ApproveItemsAdapter extends ArrayAdapter<String> {
 
                     }
                 });
-
-//                TODO: update DB
                 context.remove_item_from_screen(context.approveItems.get(this.position));
             }
         });

@@ -5,7 +5,6 @@ public class User {
     public String userID;
     public String email;
     public String name;
-    //public double balance;
 
     public User() { }
 
@@ -13,7 +12,6 @@ public class User {
         this.userID = userID;
         this.email = email;
         this.name = name;
-      //  this.balance = 0;
     }
 
     public String getUserID() {
@@ -40,7 +38,4 @@ public class User {
         this.name = name;
     }
 
-  //  public double getBalance() {  return balance;  }
-
-  //  public void setBalance(double balance) { this.balance = balance; }
 }

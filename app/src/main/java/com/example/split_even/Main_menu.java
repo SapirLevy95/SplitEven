@@ -29,6 +29,8 @@ public class Main_menu extends AppCompatActivity {
     EditText offerNewItemEt;
     static String offeredItem;
     Button calculationScreenBt;
+    static boolean is_in_shared_items = false;
+    static DatabaseReference offered_items_ref;
 
 
     @Override
@@ -45,8 +47,6 @@ public class Main_menu extends AppCompatActivity {
         calculationScreenBt = findViewById(R.id.calculationExpansesScreenBt);
 
         if (!AppState.user_name.equals("admin@gmail.com")) {
-            System.out.println("user_name");
-            System.out.println(AppState.user_name);
             approveNewItemBt.setVisibility(View.INVISIBLE);
         } else{
             approveNewItemBt.setVisibility(View.VISIBLE);
@@ -64,24 +64,45 @@ public class Main_menu extends AppCompatActivity {
             public void onClick(View view) {
                 offeredItem =  offerNewItemEt.getText().toString();
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("OfferedItems");
-                myRef.orderByChild("itemName").equalTo(offeredItem).addListenerForSingleValueEvent(new ValueEventListener() {
+                offered_items_ref = database.getReference("OfferedItems");
+                DatabaseReference shared_items_ref = database.getReference("SharedItems");
+                shared_items_ref.orderByChild("itemName").equalTo(offeredItem).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists())
                         {
-                            Toast.makeText(Main_menu.this, "Item already exists",
+                            Toast.makeText(Main_menu.this, "Item is already in Shared Items",
                                     Toast.LENGTH_SHORT).show();
+
                         }
-                        else {
-                            offerNewItemEt.setText("");
-                            Map<String, String> temp = new HashMap<String, String>();
-                            temp.put("itemName", offeredItem);
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference myRef1 = database.getReference("OfferedItems");
-                            myRef1.push().setValue(temp);
-                            Toast.makeText(Main_menu.this, "Item was added to Offered Items",
-                                    Toast.LENGTH_SHORT).show();
+                        else
+                        {
+                            offered_items_ref.orderByChild("itemName").equalTo(offeredItem).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists())
+                                    {
+                                        Toast.makeText(Main_menu.this, "Item was already offered",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        offerNewItemEt.setText("");
+                                        Map<String, String> temp = new HashMap<String, String>();
+                                        temp.put("itemName", offeredItem);
+                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        DatabaseReference myRef1 = database.getReference("OfferedItems");
+                                        myRef1.push().setValue(temp);
+                                        Toast.makeText(Main_menu.this, "Item was added to Offered Items",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
                         }
                     }
 
@@ -90,6 +111,7 @@ public class Main_menu extends AppCompatActivity {
 
                     }
                 });
+
             }
         });
 
@@ -137,7 +159,6 @@ public class Main_menu extends AppCompatActivity {
     private void moveToCalculationScreen() {
         Intent intent = new Intent(getApplicationContext(), CalculateExpenses.class);
         startActivity(intent);
-        System.out.println("Test move to calculation screen");
     }
 
     private void moveToOpeningScreen() {

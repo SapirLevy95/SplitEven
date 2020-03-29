@@ -42,6 +42,8 @@ public class ShoppingCart extends AppCompatActivity {
     public static String userEmail;
     private Button checkoutButton;
     private Button addButton_popup;
+    static  String selectedItem;
+    static double itemPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class ShoppingCart extends AppCompatActivity {
         mListView.setAdapter(shoppingCartAdapter);
 
 
-        shoppingCartAdapter.notifyDataSetChanged(); // Update the XML with the new data, call getView()
+        shoppingCartAdapter.notifyDataSetChanged();
 
         // Checkout - Save items in shopping cart to database
 
@@ -139,19 +141,19 @@ public class ShoppingCart extends AppCompatActivity {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
 
                 Spinner spinner = popupWindow.getContentView().findViewById(R.id.select_item_spinner);
-                String selectedItem = (String) spinner.getSelectedItem();
+                selectedItem = (String) spinner.getSelectedItem();
 
                 EditText priceEt = popupWindow.getContentView().findViewById(R.id.priceEt);
-                double itemPrice = Double.parseDouble(priceEt.getText().toString());
+                itemPrice = Double.parseDouble(priceEt.getText().toString());
 
-                System.out.println("Before reading user details from DB");
                 DatabaseReference myRef = database.getReference("Users").child(userID);
                 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         User user = dataSnapshot.getValue(User.class);
                         userEmail = user.getEmail();
-                        System.out.println("user email is finish: " + userEmail);
+                        PurchasedItem temp = new PurchasedItem(selectedItem, itemPrice, userEmail);
+                        purchased_items_to_db.add(temp);
                     }
 
                     @Override
@@ -160,18 +162,7 @@ public class ShoppingCart extends AppCompatActivity {
                     }
                 });
 
-                try {
-                    TimeUnit.SECONDS.sleep(3);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println("userEmail outside db " + userEmail);
-                PurchasedItem temp = new PurchasedItem(selectedItem, itemPrice, userEmail);
-                System.out.println ("Item name: " + temp.getItemName() + " and item price: " + temp.getPrice() + " and user mail: " + temp.getUserEmail());
-                purchased_items_to_db.add(temp);
-
-                //Add the new item to the shopping cart list
+                // Add the new item to the shopping cart list
                 shopping_cart_items_display.add(selectedItem);
                 shoppingCartAdapter.notifyDataSetChanged();
                 popupWindow.dismiss();
@@ -187,7 +178,6 @@ public class ShoppingCart extends AppCompatActivity {
             }
         });
     }
-
 
     public void add_shopping_cart_item(String item) {
         //need to add if inStock | add the DB | update the TOTAL viewtext **********

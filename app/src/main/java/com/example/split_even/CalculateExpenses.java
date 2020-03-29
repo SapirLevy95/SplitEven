@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class CalculateExpenses extends AppCompatActivity {
 
@@ -25,14 +26,15 @@ public class CalculateExpenses extends AppCompatActivity {
     private TextView user3_expenses;
     private  TextView user4_expenses;
     private TextView totalExpenses;
-    static  ArrayList<PurchasedItem> purchasedItemsArr;
-    static ArrayList<UserExpenses> userExpensesSum;
+    static  ArrayList<PurchasedItem> purchased_items;
+    static ArrayList<UserExpenses> user_expenses_sum;
+    static DatabaseReference get_users_from_db;
+    static FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calculate_expenses);
-        System.out.println("Test calculation screen");
 
         user1 = findViewById(R.id.username1Tv);
         user2 = findViewById(R.id.username2Tv);
@@ -43,46 +45,47 @@ public class CalculateExpenses extends AppCompatActivity {
         user1_expenses = findViewById(R.id.user3ExpensesTv);
 
 
-        // Get all purchased items data from DB
+        // Get all purchased items data from DB and save them in purchased_items
 
-        purchasedItemsArr = new ArrayList<PurchasedItem>();
-        userExpensesSum = new ArrayList<UserExpenses>();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("PurchasedItems");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        purchased_items = new ArrayList<PurchasedItem>();
+        user_expenses_sum = new ArrayList<UserExpenses>();
+        database = FirebaseDatabase.getInstance();
+        final DatabaseReference get_purchased_items_from_db = database.getReference("PurchasedItems");
+        get_purchased_items_from_db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren())
                 {
-                    purchasedItemsArr.add(child.getValue(PurchasedItem.class));
+                    PurchasedItem temp = child.getValue(PurchasedItem.class);
+                    purchased_items.add(temp);
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-        DatabaseReference myRef1 = database.getReference("Users");
-        myRef1.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren())
-                {
-                    String tempEmail = child.getValue(User.class).getEmail();
-                    String tempUsername = child.getValue(User.class).getName();
-                    UserExpenses ux = new UserExpenses(tempUsername);
-                    for (int i = 0; i<purchasedItemsArr.size();i++)
-                    {
-                        if (purchasedItemsArr.get(i).getUserEmail().equals(tempEmail))
+                get_users_from_db = database.getReference("Users");
+                get_users_from_db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child : dataSnapshot.getChildren())
                         {
-                            ux.setExpenses(ux.getExpenses() + purchasedItemsArr.get(i).getPrice());
+                            String tempEmail = child.getValue(User.class).getEmail();
+                            String tempUsername = child.getValue(User.class).getName();
+                            UserExpenses ux = new UserExpenses(tempUsername);
+                            for (int i = 0; i<purchased_items.size();i++)
+                            {
+                                if (purchased_items.get(i).getUserEmail().equals(tempEmail))
+                                {
+                                    ux.setExpenses(ux.getExpenses() + purchased_items.get(i).getPrice());
+                                }
+
+                            }
+                            user_expenses_sum.add(ux);
                         }
                     }
-                    userExpensesSum.add(ux);
-                }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -91,20 +94,18 @@ public class CalculateExpenses extends AppCompatActivity {
             }
         });
 
-        user1.setText(userExpensesSum.get(0).getUserName());
-        user2.setText(userExpensesSum.get(1).getUserName());
-        user3.setText(userExpensesSum.get(2).getUserName());
-
-        user1_expenses.setText(Double.toString(userExpensesSum.get(0).getExpenses()));
-        user2_expenses.setText(Double.toString(userExpensesSum.get(1).getExpenses()));
-        user3_expenses.setText(Double.toString(userExpensesSum.get(2).getExpenses()));
+        // Iterate over registered users and calculate sum of their expenses
 
 
 
 
-        //Todo : put the info into the textview like -->   user1.setText(""); --> while we get the text from DB
+        user1.setText(user_expenses_sum.get(0).getUserName());
+        user2.setText(user_expenses_sum.get(1).getUserName());
+      //  user3.setText(user_expenses_sum.get(2).getUserName());
 
-
+        user1_expenses.setText(Double.toString(user_expenses_sum.get(0).getExpenses()));
+        user2_expenses.setText(Double.toString(user_expenses_sum.get(1).getExpenses()));
+      //  user3_expenses.setText(Double.toString(user_expenses_sum.get(2).getExpenses()));
 
     }
 }
