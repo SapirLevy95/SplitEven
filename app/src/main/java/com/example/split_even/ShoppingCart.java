@@ -120,15 +120,15 @@ public class ShoppingCart extends AppCompatActivity {
             }
         });
 
-        List<String> temp_shared_items = new ArrayList<String>();
-        temp_shared_items.add("Eggs");
-        temp_shared_items.add("Milk");
-        temp_shared_items.add("Cheese");
-        temp_shared_items.add("Soap");
+        List<String> spinnerItems = new ArrayList<String>();
+        spinnerItems.add("Eggs");
+        spinnerItems.add("Milk");
+        spinnerItems.add("Cheese");
+        spinnerItems.add("Soap");
 
         Spinner spinner = popupWindow.getContentView().findViewById(R.id.select_item_spinner);
-        ArrayAdapter<String> popupAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, temp_shared_items);
-        spinner.setAdapter(popupAdapter);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerItems);
+        spinner.setAdapter(spinnerAdapter);
 
         // Add item to shopping cart
 
